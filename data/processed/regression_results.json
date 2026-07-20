@@ -1,0 +1,22 @@
+{
+  "auc_dummy": 0.5,
+  "auc_baseline": 0.6186024513664633,
+  "auc_full": 0.6214873013007223,
+  "auc_improvement": 0.0028848499342589706,
+  "before_after": {
+    "superlative": {
+      "changepoint_year": 2021,
+      "high_adj_success_before": 0.5400372439478585,
+      "low_adj_success_before": 0.4769606018455028,
+      "high_adj_success_after": 0.5329821921244043,
+      "low_adj_success_after": 0.5256241568261688
+    },
+    "emotional": {
+      "changepoint_year": 2016,
+      "high_adj_success_before": 0.44956687711055643,
+      "low_adj_success_before": 0.4138023699229647,
+      "high_adj_success_after": 0.5919827749984168,
+      "low_adj_success_after": 0.519240974981927
+    }
+  }
+}

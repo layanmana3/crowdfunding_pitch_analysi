@@ -1,0 +1,32 @@
+{
+  "superlative": {
+    "changepoint_years": [
+      2021
+    ],
+    "col": "rate_superlative",
+    "before_mean": 0.0032497299543886257,
+    "after_mean": 0.0022776553491980914,
+    "t_stat": 18.9643708548463,
+    "p_value": 3.697160915859737e-80,
+    "significant": true
+  },
+  "urgency_scarcity": {
+    "changepoint_years": [],
+    "col": "rate_urgency_scarcity"
+  },
+  "emotional": {
+    "changepoint_years": [
+      2016
+    ],
+    "col": "rate_emotional",
+    "before_mean": 0.004664132002317799,
+    "after_mean": 0.0041041580268169,
+    "t_stat": 8.012300334877771,
+    "p_value": 1.1293469084973648e-15,
+    "significant": true
+  },
+  "quality_technical": {
+    "changepoint_years": [],
+    "col": "rate_quality_technical"
+  }
+}
