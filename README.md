@@ -2,6 +2,10 @@
 
 A longitudinal cross-platform study of marketing adjective usage and sentiment in Kickstarter and Indiegogo crowdfunding campaigns (2014–2025) and their correlation with fundraising success.
 
+📄 **Full paper:** [Crowdfunding_Pitch_Paper.pdf](Crowdfunding_Pitch_Paper.pdf)
+
+**Tech stack:** Python · pandas · NumPy · scikit-learn · SciPy · spaCy · ruptures (PELT) · TextBlob · matplotlib · seaborn
+
 ## Research Questions
 1. Is there a detectable changepoint in adjective usage in crowdfunding pitches across 2014–2025?
 2. Do such shifts correlate with campaign fundraising success?
@@ -17,6 +21,22 @@ A longitudinal cross-platform study of marketing adjective usage and sentiment i
 - Pitch **polarity and subjectivity** have both declined since 2016 — pitches are becoming more factual
 - Highly **subjective** pitches achieve 3.5pp higher success rates
 - Combined corpus: **340,055 campaigns** (278,628 Kickstarter + 61,427 Indiegogo)
+
+## Methodology
+- **Data pipeline:** collection and cleaning of 12 public snapshots into a unified dataset
+- **NLP features:** spaCy POS tagging to extract and categorize adjectives (superlative, urgency/scarcity, emotional, quality/technical), plus TextBlob sentiment (polarity, subjectivity)
+- **Time-series analysis:** PELT changepoint detection (`ruptures`) on yearly adjective rates
+- **Predictive modeling:** feature engineering (log goal, pitch length, category dummies, standardized features) and logistic regression with **5-fold cross-validated ROC AUC**, compared against a dummy baseline and a controls-only model
+
+## Model Results (5-fold CV ROC AUC)
+
+| Model | AUC |
+|-------|-----|
+| Dummy baseline | 0.500 |
+| Controls only (goal, pitch length, category) | 0.619 |
+| Controls + adjective features | 0.621 |
+
+Adjective features add a small but consistent signal (+0.003 AUC) on top of the controls; their main value is in the interpretable coefficients and the before/after-changepoint effects.
 
 ## Data Sources
 - **Kickstarter**: 6 snapshots (Jan 2016, 2018, 2020, 2022, 2024, 2026) via [Web Robots](https://webrobots.io/kickstarter-datasets/)
@@ -41,10 +61,10 @@ Or step by step:
 python step2_build_dataset.py        # Download & build dataset — Kickstarter + Indiegogo (~45 min)
 python step3_extract_adjectives.py   # Extract & categorize adjectives with spaCy (~20 min)
 python step4_changepoint.py          # Detect changepoints (PELT algorithm)
-python step5_regression.py           # Logistic regression analysis
+python step5_regression.py           # Logistic regression + cross-validated AUC
 python step6_visualizations.py       # Generate figures 1–5
 python step7_platform_comparison.py  # Cross-platform comparison (figures 6–7)
-python step8_category_analysis.py    # Category analysis + Word Cloud (figures 8–9)
+python step8_category_analysis.py    # Category analysis + word cloud (figures 8–9)
 python step9_sentiment_analysis.py   # Sentiment analysis with TextBlob (figures 10–11)
 ```
 
@@ -61,13 +81,13 @@ crowdfunding_pitch_analysis/
 ├── step7_platform_comparison.py     # Figures 6–7: Kickstarter vs Indiegogo
 ├── step8_category_analysis.py       # Figures 8–9: by category + word cloud
 ├── step9_sentiment_analysis.py      # Figures 10–11: sentiment trends & success
+├── Crowdfunding_Pitch_Analysis.ipynb
+├── Crowdfunding_Pitch_Paper.pdf
 ├── requirements.txt
 ├── data/
 │   ├── raw/                         # Raw JSON snapshots (not on GitHub)
-│   └── processed/                   # Processed CSVs
-├── figures/                         # 11 output figures for paper
-└── notebooks/
-    └── Crowdfunding_Pitch_Analysis.ipynb
+│   └── processed/                   # Processed CSVs and result JSONs
+└── figures/                         # 11 output figures for the paper
 ```
 
 ## Output Figures
